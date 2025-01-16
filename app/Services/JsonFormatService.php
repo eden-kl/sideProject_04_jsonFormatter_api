@@ -12,6 +12,7 @@ class JsonFormatService
      */
     public function jsonFormat(string $jsonString): array
     {
+        $jsonString = trim(preg_replace('/\s+/', '', $jsonString));
         return [
             'status' => StatusCode::allSuccess->value,
             'data' => $jsonString,
