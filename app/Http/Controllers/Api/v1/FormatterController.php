@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class FormatterController extends Controller
 {
-    public function formatter(Request $request)
+    public function formatJson(Request $request)
     {
-        print_r($request->all());
-        exit();
     }
 }
