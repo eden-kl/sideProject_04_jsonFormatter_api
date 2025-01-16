@@ -6,6 +6,7 @@ enum StatusCode: string
 {
     case allSuccess = '0000';
     case parameterError = 'E101';
+    case jsonSchemeError = 'E102';
     case error = 'E999';
 
     /**

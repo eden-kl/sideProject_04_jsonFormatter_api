@@ -16,6 +16,10 @@ final class StatusMessage
             'message' => '參數錯誤',
             'httpCode' => Response::HTTP_BAD_REQUEST,
         ],
+        StatusCode::jsonSchemeError->value => [
+            'message' => 'json格式錯誤',
+            'httpCode' => Response::HTTP_OK,
+        ],
         StatusCode::error->value => [
             'message' => 'Error',
             'httpCode' => Response::HTTP_OK,
