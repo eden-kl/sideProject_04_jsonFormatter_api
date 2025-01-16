@@ -43,7 +43,7 @@ class JsonFormatService
                 }
                 $section .= '\n';
             }
-            $section .= '}';
+            $section .= $prefix . '}';
             return $section;
         }
     }
