@@ -29,14 +29,14 @@ class JsonFormatService
     private function createBeautifulJson(array|string $data, int $rank = 0): string
     {
         if (gettype($data) !== 'array') {
-            $prefix = str_repeat(' ', $rank * self::SPACE_GAP);
-            return $prefix . $data;
+            return '"' . $data . '"';
         }else{
             $section = '';
             $prefix = str_repeat(' ', $rank * self::SPACE_GAP);
             $section .= $prefix . '{\n';
             $lastArrayKey = array_key_last($data);
             foreach ($data as $key => $value) {
+                $section .= str_repeat(' ', ($rank + 1) * self::SPACE_GAP) . '"' . $key . '":';
                 $section .= $this->createBeautifulJson($value, $rank + 1);
                 if ($key !== $lastArrayKey) {
                     $section .= ',';
