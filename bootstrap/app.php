@@ -1,11 +1,13 @@
 <?php
 
+use App\Enums\StatusCode;
 use App\Formatters\Formatter;
 use App\Formatters\Response\StatusMessage;
 use App\Http\Middleware\IpValidator;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Seld\JsonLint\ParsingException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -22,10 +24,13 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Throwable $exception) {
             $formatter = new Formatter();
-            $defaultErrorStatus = [
+            $errorStatus = [
                 'status' => StatusMessage::getStatusCode($exception->getCode()),
                 'message' => '[Exception]' . $exception->getMessage()
             ];
-            return $formatter->formatResponse($defaultErrorStatus);
+            if ($exception instanceof ParsingException) {
+                $errorStatus['status'] = StatusCode::jsonSchemeError->value;
+            }
+            return $formatter->formatResponse($errorStatus);
         });
     })->create();
